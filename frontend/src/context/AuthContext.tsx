@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from '../lib/toast';
 import { queryKeys } from '../hooks/queryKeys';
 import {
   fetchCurrentUser,
@@ -49,9 +49,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       queryClient.setQueryData(queryKeys.auth.me, loggedIn);
       void queryClient.invalidateQueries({ queryKey: queryKeys.cart.root });
       void queryClient.invalidateQueries({ queryKey: queryKeys.wishlist.root });
-      toast.success('Welcome back!');
+      toast.success('Welcome back!', 'You are signed in to ShopPilot AI');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Login failed')),
+    onError: (error) => toast.error('Login failed', getErrorMessage(error, 'Check your email and password')),
   });
 
   const registerMutation = useMutation({
@@ -60,9 +60,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       queryClient.setQueryData(queryKeys.auth.me, registered);
       void queryClient.invalidateQueries({ queryKey: queryKeys.cart.root });
       void queryClient.invalidateQueries({ queryKey: queryKeys.wishlist.root });
-      toast.success('Account created successfully');
+      toast.success('Account created', 'Your ShopPilot AI account is ready');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Registration failed')),
+    onError: (error) =>
+      toast.error('Registration failed', getErrorMessage(error, 'Could not create your account')),
   });
 
   const logoutMutation = useMutation({
@@ -71,18 +72,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       queryClient.setQueryData(queryKeys.auth.me, null);
       queryClient.removeQueries({ queryKey: queryKeys.cart.root });
       queryClient.removeQueries({ queryKey: queryKeys.wishlist.root });
-      toast.info('Logged out');
+      toast.info('Logged out', 'See you again soon');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Logout failed')),
+    onError: (error) => toast.error('Logout failed', getErrorMessage(error, 'Please try again')),
   });
 
   const updateProfileMutation = useMutation({
     mutationFn: updateUserProfile,
     onSuccess: (updated) => {
       queryClient.setQueryData(queryKeys.auth.me, updated);
-      toast.success('Profile updated');
+      toast.success('Profile updated', 'Your changes have been saved');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Update failed')),
+    onError: (error) => toast.error('Update failed', getErrorMessage(error, 'Could not save profile')),
   });
 
   const login = useCallback(

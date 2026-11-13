@@ -86,6 +86,16 @@ export async function fetchAdminProduct(id: string): Promise<Product> {
   return unwrap(res).product;
 }
 
+export async function uploadProductImages(files: File[]): Promise<string[]> {
+  const form = new FormData();
+  files.forEach((file) => form.append('images', file));
+  const res = await api.post<ApiSuccessResponse<{ urls: string[] }>>('/upload/images', form, {
+    // Let the browser set multipart boundary
+    headers: { 'Content-Type': undefined },
+  });
+  return unwrap(res).urls;
+}
+
 export async function createProduct(payload: Record<string, unknown>): Promise<Product> {
   const res = await api.post<ApiSuccessResponse<{ product: Product }>>('/products', payload);
   return unwrap(res).product;

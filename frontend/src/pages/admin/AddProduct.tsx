@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from '../../lib/toast';
 import { ProductForm, type ProductFormValues } from '../../components/ProductForm';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { queryKeys } from '../../hooks/queryKeys';

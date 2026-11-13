@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from '../lib/toast';
 import { queryKeys } from '../hooks/queryKeys';
 import {
   addToCartApi,
@@ -54,31 +54,35 @@ export function CartProvider({ children }: { children: ReactNode }) {
       addToCartApi(productId, quantity),
     onSuccess: (data) => {
       setCartData(data);
-      toast.success('Added to cart');
+      toast.success('Added to cart', 'Item is waiting in your cart');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not add to cart')),
+    onError: (error) =>
+      toast.error('Could not add to cart', getErrorMessage(error, 'Please try again')),
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ productId, quantity }: { productId: string; quantity: number }) =>
       updateCartItemApi(productId, quantity),
     onSuccess: setCartData,
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not update cart')),
+    onError: (error) =>
+      toast.error('Could not update cart', getErrorMessage(error, 'Please try again')),
   });
 
   const removeMutation = useMutation({
     mutationFn: (productId: string) => removeCartItemApi(productId),
     onSuccess: (data) => {
       setCartData(data);
-      toast.info('Item removed');
+      toast.info('Item removed', 'Removed from your cart');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not remove item')),
+    onError: (error) =>
+      toast.error('Could not remove item', getErrorMessage(error, 'Please try again')),
   });
 
   const clearMutation = useMutation({
     mutationFn: clearCartApi,
     onSuccess: setCartData,
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not clear cart')),
+    onError: (error) =>
+      toast.error('Could not clear cart', getErrorMessage(error, 'Please try again')),
   });
 
   const refresh = useCallback(async () => {

@@ -3,7 +3,7 @@ import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi';
 import { useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from '../../lib/toast';
 import { EmptyState } from '../../components/EmptyState';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { Price } from '../../components/Price';

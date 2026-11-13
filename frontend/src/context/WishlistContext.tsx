@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from '../lib/toast';
 import { queryKeys } from '../hooks/queryKeys';
 import { addToWishlistApi, fetchWishlist, removeFromWishlistApi } from '../services/api';
 import type { Product } from '../types';
@@ -36,18 +36,20 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     mutationFn: addToWishlistApi,
     onSuccess: (wishlist) => {
       queryClient.setQueryData(queryKeys.wishlist.root, wishlist);
-      toast.success('Added to wishlist');
+      toast.success('Added to wishlist', 'Saved for later');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not add to wishlist')),
+    onError: (error) =>
+      toast.error('Could not add to wishlist', getErrorMessage(error, 'Please try again')),
   });
 
   const removeMutation = useMutation({
     mutationFn: removeFromWishlistApi,
     onSuccess: (wishlist) => {
       queryClient.setQueryData(queryKeys.wishlist.root, wishlist);
-      toast.info('Removed from wishlist');
+      toast.info('Removed from wishlist', 'Item is no longer saved');
     },
-    onError: (error) => toast.error(getErrorMessage(error, 'Could not remove from wishlist')),
+    onError: (error) =>
+      toast.error('Could not remove from wishlist', getErrorMessage(error, 'Please try again')),
   });
 
   const refresh = useCallback(async () => {

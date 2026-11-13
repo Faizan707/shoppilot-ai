@@ -1,6 +1,6 @@
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from '../lib/toast';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';

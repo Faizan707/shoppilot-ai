@@ -50,13 +50,13 @@ npm install
 npm run dev
 ```
 
-App: `http://localhost:5173`
+App: `http://localhost:5175`
 
 ## Seed credentials
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | `admin@shoppilot.ai` | `Admin123!` |
+| Admin | `faizan@gmail.com` | `Admin123!` |
 | Customer | `customer@shoppilot.ai` | `Customer123!` |
 
 Seed also creates 5 categories and 23 sample products.
@@ -75,11 +75,24 @@ PORT=5001
 MONGODB_URI=mongodb://127.0.0.1:27017/shoppilot-ai
 JWT_SECRET=change_this_to_a_long_random_secret
 JWT_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:5175
 NODE_ENV=development
 COOKIE_SECURE=false
 INTERNAL_SERVICE_SECRET=change_this_internal_service_secret
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=ap-southeast-2
+AWS_S3_BUCKET=shopilot-ai
 ```
+
+Product images upload to S3 via `POST /api/upload/images` (admin only). After creating the bucket, run:
+
+```bash
+cd backend
+npx tsx src/utils/configureS3PublicRead.ts
+```
+
+so `products/*` objects are publicly readable in the shop.
 
 ### Frontend (`frontend/.env`)
 

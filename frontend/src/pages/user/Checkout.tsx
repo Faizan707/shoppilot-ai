@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from '../../lib/toast';
 import { Price } from '../../components/Price';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';

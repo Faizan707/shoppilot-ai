@@ -325,7 +325,7 @@ export async function seedDatabase(options: { clear?: boolean } = {}) {
 
   const admin = await User.create({
     name: 'ShopPilot Admin',
-    email: 'admin@shoppilot.ai',
+    email: 'faizan@gmail.com',
     password: 'Admin123!',
     role: 'admin',
     phone: '+92-300-0000000',
@@ -376,7 +376,7 @@ export async function seedDatabase(options: { clear?: boolean } = {}) {
 
   console.log('Seed completed successfully');
   console.log('--------------------------------');
-  console.log(`Admin: admin@shoppilot.ai / Admin123!`);
+  console.log(`Admin: faizan@gmail.com / Admin123!`);
   console.log(`Customer: customer@shoppilot.ai / Customer123!`);
   console.log(`Categories: ${categories.length}`);
   console.log(`Products: ${products.length}`);

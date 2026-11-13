@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from '../../lib/toast';
 import { useAuth } from '../../context/AuthContext';
 import { changePassword } from '../../services/api';
 import { getErrorMessage } from '../../utils/errors';

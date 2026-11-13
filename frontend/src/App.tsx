@@ -1,5 +1,4 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import { AdminRoute } from './components/AdminRoute';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -7,6 +6,7 @@ import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import { ShopLayout } from './layouts/ShopLayout';
+import { AppToastContainer } from './lib/toast';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import { AddProduct } from './pages/admin/AddProduct';
@@ -64,7 +64,7 @@ export default function App() {
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-            <ToastContainer position="top-right" autoClose={3200} theme="colored" newestOnTop />
+            <AppToastContainer />
           </WishlistProvider>
         </CartProvider>
       </AuthProvider>
